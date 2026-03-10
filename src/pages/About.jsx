@@ -43,19 +43,19 @@ export default function About() {
                 <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Why Arcade?</h2>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem' }}>
-                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: '#e2e8f0', boxShadow: '4px 4px 0px var(--border-color)' }}>
+                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: 'var(--bg-card)', boxShadow: '4px 4px 0px var(--border-color)' }}>
                         <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>⚡ Zero slippage on stablecoin pairs</span>
                     </div>
-                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: '#e2e8f0', boxShadow: '4px 4px 0px var(--border-color)' }}>
+                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: 'var(--bg-card)', boxShadow: '4px 4px 0px var(--border-color)' }}>
                         <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>🔒 Non-custodial: your keys, your coins</span>
                     </div>
-                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: '#e2e8f0', boxShadow: '4px 4px 0px var(--border-color)' }}>
+                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: 'var(--bg-card)', boxShadow: '4px 4px 0px var(--border-color)' }}>
                         <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>💸 Near-zero gas fees powered by USDC</span>
                     </div>
-                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: '#e2e8f0', boxShadow: '4px 4px 0px var(--border-color)' }}>
+                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: 'var(--bg-card)', boxShadow: '4px 4px 0px var(--border-color)' }}>
                         <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>🌍 Seamless cross-border FX in seconds</span>
                     </div>
-                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: '#e2e8f0', boxShadow: '4px 4px 0px var(--border-color)' }}>
+                    <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: 'var(--bg-card)', boxShadow: '4px 4px 0px var(--border-color)' }}>
                         <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>🎮 Neo-Brutalist UI that's fun to use</span>
                     </div>
                 </div>
