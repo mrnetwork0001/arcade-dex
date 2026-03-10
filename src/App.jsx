@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Faucet from './pages/Faucet';
+import Bridge from './pages/Bridge';
 import { useWallet } from './context/WalletContext';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/faucet" element={<Faucet />} />
+                    <Route path="/bridge" element={<Bridge />} />
                 </Routes>
             </main>
 

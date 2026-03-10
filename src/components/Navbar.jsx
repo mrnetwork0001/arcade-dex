@@ -58,6 +58,7 @@ export default function Navbar() {
                 <Link to="/" onClick={closeNav} style={{ textDecoration: 'none', color: 'var(--fg-color)', fontWeight: '700', fontSize: '1.2rem' }}>Home</Link>
                 <Link to="/about" onClick={closeNav} style={{ textDecoration: 'none', color: 'var(--fg-color)', fontWeight: '700', fontSize: '1.2rem' }}>About</Link>
                 <Link to="/faucet" onClick={closeNav} style={{ textDecoration: 'none', color: 'var(--fg-color)', fontWeight: '700', fontSize: '1.2rem' }}>Faucet</Link>
+                <Link to="/bridge" onClick={closeNav} style={{ textDecoration: 'none', color: 'var(--fg-color)', fontWeight: '700', fontSize: '1.2rem' }}>Bridge</Link>
 
                 {/* Mobile only actions added to menu bottom */}
                 <div className="show-mobile-flex" style={{ gap: '1rem', alignItems: 'center', marginTop: '1rem', flexDirection: 'column' }}>
