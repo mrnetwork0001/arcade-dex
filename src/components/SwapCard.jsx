@@ -104,13 +104,28 @@ export default function SwapCard({ onActivityAdd }) {
             alert(`Insufficient ${fromToken} balance!`);
             return;
         }
+
+        const tokenAddr = isFlipped ? EURC_ADDR : USDC_ADDR;
+        const amountRaw = parseUnits(fromAmount, 6);
+
+        try {
+            const allowedForSwap = await checkPermit2Allowance(signer, tokenAddr, amountRaw);
+            if (!allowedForSwap) {
+                const increase = window.confirm(`Your token allowance is less than the swap amount. Would you like to increase your allowance?`);
+                if (increase) {
+                    await handleSetupWallet();
+                }
+                return;
+            }
+        } catch (err) {
+            console.error("Allowance check error", err);
+        }
+
         try {
             setLoading(true);
             setProgress(10);
             setStatusText('Getting Signature...');
 
-            const tokenAddr = isFlipped ? EURC_ADDR : USDC_ADDR;
-            const amountRaw = parseUnits(fromAmount, 6);
             const nonce = Math.floor(Math.random() * 1000000);
             const deadline = Math.floor(Date.now() / 1000) + 3600; // 1 hr
 

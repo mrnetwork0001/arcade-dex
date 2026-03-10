@@ -9,11 +9,20 @@ const ERC20_ABI = [
     "function approve(address spender, uint256 amount) returns (bool)"
 ];
 
-export const checkPermit2Allowance = async (signer, tokenAddress) => {
+export const checkPermit2Allowance = async (signer, tokenAddress, amountRaw = 0n) => {
     const address = await signer.getAddress();
     const token = new Contract(tokenAddress, ERC20_ABI, signer);
     const allowance = await token.allowance(address, PERMIT2_ADDRESS);
+    if (amountRaw > 0n) {
+        return allowance >= amountRaw;
+    }
     return allowance > 0n; // Basic check, ideally check against amount
+};
+
+export const getPermit2Allowance = async (signer, tokenAddress) => {
+    const address = await signer.getAddress();
+    const token = new Contract(tokenAddress, ERC20_ABI, signer);
+    return await token.allowance(address, PERMIT2_ADDRESS);
 };
 
 export const approvePermit2 = async (signer, tokenAddress) => {
