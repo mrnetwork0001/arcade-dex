@@ -100,6 +100,10 @@ export default function SwapCard({ onActivityAdd }) {
 
     const executeSwap = async () => {
         if (!fromAmount || parseFloat(fromAmount) <= 0) return;
+        if (parseFloat(fromAmount) > parseFloat(fromBalance)) {
+            alert(`Insufficient ${fromToken} balance!`);
+            return;
+        }
         try {
             setLoading(true);
             setProgress(10);

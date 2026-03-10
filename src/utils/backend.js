@@ -68,7 +68,11 @@ export const executeSwapEdge = async (fromAmount, signature, permitData, isFlipp
 
         } catch (err) {
             console.error("Relayer execution failed:", err);
-            reject(err);
+            if (err.message && err.message.includes('TRANSFER_FROM_FAILED')) {
+                reject(new Error("Transfer Failed: You may not have enough testnet balance to execute this swap, or the allowance was insufficient."));
+            } else {
+                reject(err);
+            }
         }
     });
 };
