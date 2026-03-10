@@ -39,7 +39,7 @@ function App() {
                     textDecoration: 'none',
                     fontWeight: '800',
                     borderBottom: '2px solid var(--accent-1)'
-                }}>MrNetwork</a> ⚡
+                }}>MrNetwork</a>
             </footer>
 
             <div id="toast-container"></div>
