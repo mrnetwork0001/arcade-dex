@@ -28,7 +28,7 @@ export default function About() {
                 <p className="mono" style={{ fontSize: '1rem', lineHeight: '1.8', marginBottom: '1.5rem', fontWeight: '500' }}>
                     <strong>Arcade</strong> is a high-speed, decentralized stablecoin FX platform built
                     natively on the <strong>Arc Network</strong>. It enables instant, low-cost swaps
-                    between fiat-backed stablecoins like USDC, EURC, and USDT — making
+                    between fiat-backed stablecoins like USDC and EURC; making
                     cross-border liquidity as simple as playing a game.
                 </p>
 
@@ -47,7 +47,7 @@ export default function About() {
                         <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>⚡ Zero slippage on stablecoin pairs</span>
                     </div>
                     <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: '#e2e8f0', boxShadow: '4px 4px 0px var(--border-color)' }}>
-                        <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>🔒 Non-custodial — your keys, your coins</span>
+                        <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>🔒 Non-custodial: your keys, your coins</span>
                     </div>
                     <div style={{ border: '3px solid var(--border-color)', padding: '1rem', backgroundColor: '#e2e8f0', boxShadow: '4px 4px 0px var(--border-color)' }}>
                         <span className="mono" style={{ fontSize: '1rem', fontWeight: '600' }}>💸 Near-zero gas fees powered by USDC</span>
@@ -66,7 +66,7 @@ export default function About() {
                     Arcade connects directly to Arc Network's native FX engine. When
                     you initiate a swap, the protocol calculates the optimal rate,
                     executes the transaction on-chain, and settles in seconds. No order
-                    books, no AMM impermanent loss — just deterministic FX rates backed
+                    books, no AMM impermanent loss; just deterministic FX rates backed
                     by real-world stablecoin reserves.
                 </p>
 
