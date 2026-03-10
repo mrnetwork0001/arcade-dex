@@ -22,15 +22,15 @@ export default function Faucet() {
                 <div style={{
                     border: '4px dashed var(--border-color)',
                     backgroundColor: 'var(--bg-color)', // to cover the dots if needed, or slightly darker
-                    padding: '2rem 3rem',
+                    padding: '1rem',
                     marginBottom: '2.5rem',
                     textAlign: 'center',
                     width: '100%',
                     boxShadow: '8px 8px 0px var(--shadow-color)'
                 }}>
                     <p className="mono" style={{ fontSize: '1.25rem', lineHeight: '1.6' }}>
-                        Arcade runs on the <strong>Arc Testnet</strong>. You need <strong>Testnet USDC</strong> to pay<br />
-                        for gas and trade. Use the official Circle Faucet below to get<br />
+                        Arcade runs on the <strong>Arc Testnet</strong>. You need <strong>Testnet USDC</strong> to pay
+                        for gas and trade. Use the official Circle Faucet below to get
                         topped up.
                     </p>
                 </div>
