@@ -1,0 +1,45 @@
+export const ensureArcNetwork = async () => {
+    if (!window.ethereum) throw new Error("No crypto wallet found");
+
+    const chainId = 5042002;
+    const hexChainId = "0x" + chainId.toString(16);
+
+    try {
+        // Try to switch to Arc Testnet
+        await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: hexChainId }],
+        });
+    } catch (switchError) {
+        // This error code indicates that the chain has not been added to MetaMask.
+        const isNotAdded =
+            switchError.code === 4902 ||
+            switchError.data?.originalError?.code === 4902 ||
+            (switchError.message && switchError.message.includes('Unrecognized chain ID'));
+
+        if (isNotAdded) {
+            try {
+                await window.ethereum.request({
+                    method: "wallet_addEthereumChain",
+                    params: [
+                        {
+                            chainId: hexChainId,
+                            chainName: "Arc Testnet",
+                            rpcUrls: ["https://rpc.testnet.arc.network"],
+                            nativeCurrency: {
+                                name: "USDC",
+                                symbol: "USDC",
+                                decimals: 18, // Even though USDC ERC20 is 6, native gas might be displayed with 18, we can stick to 18 for native
+                            },
+                            blockExplorerUrls: ["https://testnet.arcscan.app"],
+                        },
+                    ],
+                });
+            } catch (addError) {
+                throw new Error("Failed to add Arc network");
+            }
+        } else {
+            throw switchError;
+        }
+    }
+};
