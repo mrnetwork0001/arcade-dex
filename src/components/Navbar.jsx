@@ -40,7 +40,7 @@ export default function Navbar() {
     );
 
     return (
-        <nav style={{ position: 'relative' }}>
+        <nav style={{ position: 'sticky', top: 0, zIndex: 100 }}>
             {/* LEFT: Logo */}
             <Link to="/" className="logo" onClick={closeNav}>
                 ARCADE
