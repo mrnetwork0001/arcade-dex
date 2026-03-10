@@ -14,7 +14,7 @@ export default function Faucet() {
                 zIndex: -1
             }} />
 
-            <div className="container" style={{ maxWidth: '800px', marginTop: '4rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div className="container" style={{ maxWidth: '800px', marginTop: '0.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '3rem', marginBottom: '2rem', textTransform: 'uppercase' }}>
                     <Droplet strokeWidth={3} size={40} /> FUEL YOUR WALLET
                 </h1>

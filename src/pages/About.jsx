@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function About() {
     return (
-        <div style={{ padding: '2rem 1rem', maxWidth: '800px', margin: '0 auto', position: 'relative' }}>
+        <div style={{ padding: '0.5rem 1rem', maxWidth: '800px', margin: '0 auto', position: 'relative' }}>
             {/* Dotted Background */}
             <div style={{
                 position: 'fixed',
