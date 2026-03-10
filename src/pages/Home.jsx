@@ -54,8 +54,8 @@ export default function Home() {
             }} />
 
             {/* Hero Section */}
-            <div className="text-center mb-2" style={{ padding: '3rem 1rem 1rem 1rem' }}>
-                <h1 style={{ fontSize: '4.5rem', marginBottom: '3rem', lineHeight: '1.2', textTransform: 'none', letterSpacing: '-1px' }}>
+            <div className="text-center mb-2 hero-section">
+                <h1 className="hero-title" style={{ marginBottom: '3rem', lineHeight: '1.2', textTransform: 'none', letterSpacing: '-1px' }}>
                     FX Trading made <br />
                     <span style={{ position: 'relative', display: 'inline-block' }}>
                         Super Easy.
@@ -69,20 +69,16 @@ export default function Home() {
                     </span>
                 </h1>
 
-                <div style={{
+                <div className="hero-box" style={{
                     border: '4px dashed var(--border-color)',
                     backgroundColor: 'var(--bg-color)',
-                    padding: '2rem',
                     margin: '0 auto 3rem auto',
                     textAlign: 'center',
                     maxWidth: '700px',
                     boxShadow: '8px 8px 0px var(--shadow-color)'
                 }}>
-                    <p className="mono" style={{ fontSize: '1.1rem', lineHeight: '1.7', margin: 0 }}>
-                        One-click liquidity for the Arc Network. Arcade<br />
-                        handles the complex FX logic under the hood so you<br />
-                        can swap USDC to EURC at lightning speed with zero<br />
-                        slippage.
+                    <p className="mono hero-desc" style={{ lineHeight: '1.7', margin: 0 }}>
+                        One-click liquidity for the Arc Network. Arcade handles the complex FX logic under the hood so you can swap USDC to EURC at lightning speed with zero slippage.
                     </p>
                 </div>
             </div>
