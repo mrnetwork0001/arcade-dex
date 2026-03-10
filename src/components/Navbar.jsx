@@ -6,6 +6,7 @@ import { useWallet } from '../context/WalletContext';
 export default function Navbar() {
     const { theme, toggleTheme, address, isConnected, setIsModalOpen, disconnect } = useWallet();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMobileWalletOpen, setIsMobileWalletOpen] = useState(false);
 
     const formatAddress = (addr) => {
         if (!addr) return '';
@@ -42,7 +43,7 @@ export default function Navbar() {
         <nav style={{ position: 'relative' }}>
             {/* LEFT: Logo */}
             <Link to="/" className="logo" onClick={closeNav}>
-                <span className="spin" style={{ display: 'inline-block' }}>⚡</span> ARCADE
+                ARCADE
             </Link>
 
             {/* CENTER: Navigation Links (and mobile actions) */}
@@ -71,6 +72,53 @@ export default function Navbar() {
             <div className="nav-right" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                 <div className="hide-mobile" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                     {renderActions()}
+                </div>
+
+                {/* MOBILE HEADER CONNECT/WALLET PILL */}
+                <div className="show-mobile-flex" style={{ alignItems: 'center', position: 'relative' }}>
+                    {!isConnected ? (
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="nb-button"
+                            style={{ padding: '0.4rem 0.6rem', fontSize: '0.85rem' }}
+                        >
+                            Connect
+                        </button>
+                    ) : (
+                        <div style={{ position: 'relative' }}>
+                            <button
+                                onClick={() => setIsMobileWalletOpen(!isMobileWalletOpen)}
+                                className="nb-pill"
+                                style={{ padding: '0.4rem 0.6rem', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer', border: '2px solid var(--border-color)' }}
+                            >
+                                <Wallet size={14} />
+                                {formatAddress(address)}
+                            </button>
+
+                            {isMobileWalletOpen && (
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '100%',
+                                    right: 0,
+                                    marginTop: '0.5rem',
+                                    background: 'var(--bg-card)',
+                                    border: '2px solid var(--border-color)',
+                                    boxShadow: '4px 4px 0px var(--shadow-color)',
+                                    padding: '0.5rem',
+                                    zIndex: 50,
+                                    borderRadius: '4px'
+                                }}>
+                                    <button
+                                        onClick={() => { disconnect(); setIsMobileWalletOpen(false); }}
+                                        className="nb-button danger"
+                                        style={{ padding: '0.4rem 0.6rem', fontSize: '0.8rem', whiteSpace: 'nowrap' }}
+                                    >
+                                        Disconnect
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 {/* HAMBURGER TOGGLE */}

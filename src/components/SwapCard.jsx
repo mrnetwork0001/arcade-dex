@@ -8,8 +8,8 @@ import { parseUnits } from 'ethers';
 const USDC_ADDR = "0x3600000000000000000000000000000000000000";
 const EURC_ADDR = "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a";
 
-const USDC_ICON = "https://assets.coingecko.com/coins/images/6319/standard/usdc.png";
-const EURC_ICON = "https://assets.coingecko.com/coins/images/26049/standard/euro_coin.png";
+const USDC_ICON = "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png";
+const EURC_ICON = "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x1aBaEA1f7C830bD89Acc67eC4af516284b1bC33c/logo.png";
 
 const USDC_EURC_RATE = 0.92;
 
