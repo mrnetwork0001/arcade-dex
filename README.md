@@ -1,10 +1,12 @@
-# 🕹️ Arcade DEX
+#  Arcade DEX
 
 **Arcade** is a high-performance, streamlined decentralized exchange (DEX) built specifically for the **Arc Network**. It simplifies FX trading (Foreign Exchange) in the DeFi space, allowing users to swap between stablecoins like **USDC** and **EURC** with lightning speed, zero slippage, and a gas-optimized experience.
 
-![Arcade UI Preview](https://github.com/mrnetwork0001/arcade-dex/raw/main/public/preview.png) *(Note: Placeholder for actual preview image)*
 
-## 🚀 Key Features
+<img width="1903" height="976" alt="11 03 2026_12 27 01_REC" src="https://github.com/user-attachments/assets/5903ae58-5836-4b23-8bdc-755e08d5a68a" />
+
+
+##  Key Features
 
 - **⚡ Flash Swaps**: Immediate execution for FX pairs (USDC, EURC, etc.).
 - **⛽ Gasless Signature Support**: Utilizes Uniswap's **Permit2** protocol, allowing users to sign approvals rather than sending separate "approve" transactions.
@@ -13,7 +15,7 @@
 - **🚰 Integrated Faucet**: Easy access to test tokens for the Arc Testnet.
 - **🎨 Modern Arcade UX**: A bold, responsive interface designed for simplicity and speed.
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 - **Frontend**: React 18 with Vite
 - **Styling**: Vanilla CSS (Custom arcade-themed design system)
@@ -21,7 +23,7 @@
 - **Smart Contracts**: Solidity ^0.8.20, OpenZeppelin
 - **Network**: [Arc Testnet](https://testnet.arcscan.app)
 
-## 🌐 Network Information
+##  Network Information
 
 | Property | Value |
 | :--- | :--- |
@@ -31,7 +33,7 @@
 | **Native Token** | USDC |
 | **Block Explorer** | [ArcScan](https://testnet.arcscan.app) |
 
-## 📦 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -69,7 +71,7 @@
    npm run build
    ```
 
-## 📜 Smart Contracts
+##  Smart Contracts
 
 The core of Arcade is the `ArcadeEscrow` contract, which handles:
 - **Settlement**: Relayers settle swaps signed by users.
@@ -78,14 +80,14 @@ The core of Arcade is the `ArcadeEscrow` contract, which handles:
 
 The contract is designed to work with the **Permit2** interface (`0x000000000022D473030F116dDEE9F6B43aC78BA3`).
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+##  License
 
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-Built with ❤️ for the Arc Network community. 🕹️
+Built with ❤️, by [MrNetwork](https://x.com/encrypt_wizard) for the Arc Network community. 🕹️
