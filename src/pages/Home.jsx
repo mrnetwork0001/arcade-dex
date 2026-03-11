@@ -5,7 +5,12 @@ import ActivityFeed from '../components/ActivityFeed';
 import { ShieldCheck, Zap, Activity } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 
-const phrases = ["Super Easy.", "Zero Slippage.", "Lightning Fast.", "Gas Optimized."];
+const phrases = [
+    { prefix: "FX Trading made", text: "Super Easy." },
+    { prefix: "FX Trading with", text: "Zero Slippage." },
+    { prefix: "FX Trading at", text: "Lightning Fast." },
+    { prefix: "FX Trading with", text: "Gas Optimized." }
+];
 
 export default function Home() {
     const { address } = useWallet();
@@ -19,12 +24,13 @@ export default function Home() {
         let timeoutId;
 
         const type = () => {
-            const currentPhrase = phrases[phraseIndex % phrases.length];
+            const currentItem = phrases[phraseIndex % phrases.length];
+            const currentText = currentItem.text;
             const currentSpeed = isDeleting ? 50 : 100;
             
-            setTypedText(currentPhrase.substring(0, currentIndex));
+            setTypedText(currentText.substring(0, currentIndex));
 
-            if (!isDeleting && currentIndex === currentPhrase.length) {
+            if (!isDeleting && currentIndex === currentText.length) {
                 timeoutId = setTimeout(() => {
                     isDeleting = true;
                     type();
@@ -32,7 +38,6 @@ export default function Home() {
             } else if (isDeleting && currentIndex === 0) {
                 isDeleting = false;
                 setPhraseIndex(prev => prev + 1);
-                // The next phrase will be handled by the next cycle
                 timeoutId = setTimeout(type, 500);
             } else {
                 currentIndex += isDeleting ? -1 : 1;
@@ -75,6 +80,8 @@ export default function Home() {
         });
     };
 
+    const currentPrefix = phrases[phraseIndex % phrases.length].prefix;
+
     return (
         <>
             <WalletModal />
@@ -92,7 +99,7 @@ export default function Home() {
             {/* Hero Section */}
             <div className="text-center mb-2 hero-section">
                 <h1 className="hero-title" style={{ marginBottom: '3rem', lineHeight: '1.2', textTransform: 'none', letterSpacing: '-1px' }}>
-                    FX Trading made <br />
+                    {currentPrefix} <br />
                     <span style={{ position: 'relative', display: 'inline-block', minWidth: '350px', textAlign: 'left' }}>
                         {typedText}<span className="cursor"></span>
                         <svg
