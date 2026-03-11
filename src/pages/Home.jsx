@@ -5,9 +5,45 @@ import ActivityFeed from '../components/ActivityFeed';
 import { ShieldCheck, Zap, Activity } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 
+const phrases = ["Super Easy.", "Zero Slippage.", "Lightning Fast.", "Gas Optimized."];
+
 export default function Home() {
     const { address } = useWallet();
     const [activities, setActivities] = useState([]);
+    const [typedText, setTypedText] = useState('');
+    const [phraseIndex, setPhraseIndex] = useState(0);
+
+    useEffect(() => {
+        let currentIndex = 0;
+        let isDeleting = false;
+        let timeoutId;
+
+        const type = () => {
+            const currentPhrase = phrases[phraseIndex % phrases.length];
+            const currentSpeed = isDeleting ? 50 : 100;
+            
+            setTypedText(currentPhrase.substring(0, currentIndex));
+
+            if (!isDeleting && currentIndex === currentPhrase.length) {
+                timeoutId = setTimeout(() => {
+                    isDeleting = true;
+                    type();
+                }, 2000);
+            } else if (isDeleting && currentIndex === 0) {
+                isDeleting = false;
+                setPhraseIndex(prev => prev + 1);
+                // The next phrase will be handled by the next cycle
+                timeoutId = setTimeout(type, 500);
+            } else {
+                currentIndex += isDeleting ? -1 : 1;
+                timeoutId = setTimeout(type, currentSpeed);
+            }
+        };
+
+        timeoutId = setTimeout(type, 500);
+
+        return () => clearTimeout(timeoutId);
+    }, [phraseIndex]);
 
     useEffect(() => {
         if (!address) {
@@ -57,8 +93,8 @@ export default function Home() {
             <div className="text-center mb-2 hero-section">
                 <h1 className="hero-title" style={{ marginBottom: '3rem', lineHeight: '1.2', textTransform: 'none', letterSpacing: '-1px' }}>
                     FX Trading made <br />
-                    <span style={{ position: 'relative', display: 'inline-block' }}>
-                        Super Easy.
+                    <span style={{ position: 'relative', display: 'inline-block', minWidth: '350px', textAlign: 'left' }}>
+                        {typedText}<span className="cursor"></span>
                         <svg
                             style={{ position: 'absolute', bottom: '2px', left: '-5%', width: '110%', height: '24px', zIndex: -1 }}
                             viewBox="0 0 200 24"

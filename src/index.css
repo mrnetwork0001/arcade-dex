@@ -493,18 +493,23 @@ nav {
   animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0% {
-    background-color: var(--bg-card);
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
   }
-
   50% {
-    background-color: var(--accent-4);
+    opacity: 0;
   }
+}
 
-  100% {
-    background-color: var(--bg-card);
-  }
+.cursor {
+  display: inline-block;
+  width: 4px;
+  height: 1.1em;
+  background-color: var(--fg-color);
+  vertical-align: middle;
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
 }
 
 /* Progress bar */
