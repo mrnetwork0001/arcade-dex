@@ -1,6 +1,6 @@
 #  Arcade DEX
 
-**Arcade** is a high-performance, streamlined decentralized exchange (DEX) built specifically for the **Arc Network**. It simplifies FX trading (Foreign Exchange) in the DeFi space, allowing users to swap between stablecoins like **USDC** and **EURC** with lightning speed, zero slippage, and a gas-optimized experience.
+**[Arcade](https://arcade-dex.vercel.app)** is a high-performance, streamlined decentralized exchange (DEX) built specifically for the **Arc Network**. It simplifies FX trading (Foreign Exchange) in the DeFi space, allowing users to swap between stablecoins like **USDC** and **EURC** with lightning speed, zero slippage, and a gas-optimized experience.
 
 
 <img width="1903" height="976" alt="11 03 2026_12 27 01_REC" src="https://github.com/user-attachments/assets/5903ae58-5836-4b23-8bdc-755e08d5a68a" />
