@@ -27,9 +27,9 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/faucet" element={<Faucet />} />
-                    <Route path="/pool" element={<Liquidity />} />
+                    {/* <Route path="/pool" element={<Liquidity />} /> */}
                     <Route path="/bridge" element={<Bridge />} />
-                    <Route path="/remit" element={<Remit />} />
+                    {/* <Route path="/remit" element={<Remit />} /> */}
                 </Routes>
             </main>
 
