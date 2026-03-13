@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import SwapCard from '../components/SwapCard';
-import WalletModal from '../components/WalletModal';
 import ActivityFeed from '../components/ActivityFeed';
 import { ShieldCheck, Zap, Activity } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
@@ -14,6 +13,7 @@ const phrases = [
 
 export default function Home() {
     const { address } = useWallet();
+
     const [activities, setActivities] = useState([]);
     const [typedText, setTypedText] = useState('');
     const [phraseIndex, setPhraseIndex] = useState(0);
@@ -84,7 +84,6 @@ export default function Home() {
 
     return (
         <>
-            <WalletModal />
 
             <div style={{
                 position: 'absolute',

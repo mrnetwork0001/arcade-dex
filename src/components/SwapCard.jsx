@@ -4,6 +4,7 @@ import { useWallet } from '../context/WalletContext';
 import { checkPermit2Allowance, approvePermit2, getArcadeSignature } from '../utils/permit2';
 import { executeSwapEdge } from '../utils/backend';
 import { parseUnits } from 'ethers';
+import NotificationModal from './NotificationModal';
 
 const USDC_ADDR = "0x3600000000000000000000000000000000000000";
 const EURC_ADDR = "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a";
@@ -22,6 +23,11 @@ export default function SwapCard({ onActivityAdd }) {
     const [loading, setLoading] = useState(false);
     const [statusText, setStatusText] = useState('');
     const [progress, setProgress] = useState(0);
+    const [notification, setNotification] = useState({ open: false, title: '', message: '', onConfirm: null });
+
+    const showNotify = (title, message, onConfirm = null) => {
+        setNotification({ open: true, title, message, onConfirm });
+    };
 
     const [fromDropdownOpen, setFromDropdownOpen] = useState(false);
     const [toDropdownOpen, setToDropdownOpen] = useState(false);
@@ -88,10 +94,11 @@ export default function SwapCard({ onActivityAdd }) {
 
             // Alert user that setup is complete
 
-            alert("Wallet Setup Complete!");
+            setIsApproved(true);
+            showNotify("Success", "Wallet Setup Complete!");
         } catch (err) {
             console.error(err);
-            alert("Failed to setup wallet");
+            showNotify("Error", "Failed to setup wallet");
         } finally {
             setLoading(false);
             setStatusText('');
@@ -101,7 +108,7 @@ export default function SwapCard({ onActivityAdd }) {
     const executeSwap = async () => {
         if (!fromAmount || parseFloat(fromAmount) <= 0) return;
         if (parseFloat(fromAmount) > parseFloat(fromBalance)) {
-            alert(`Insufficient ${fromToken} balance!`);
+            showNotify("Insufficient Balance", `You don't have enough ${fromToken} to complete this swap.`);
             return;
         }
 
@@ -111,10 +118,11 @@ export default function SwapCard({ onActivityAdd }) {
         try {
             const allowedForSwap = await checkPermit2Allowance(signer, tokenAddr, amountRaw);
             if (!allowedForSwap) {
-                const increase = window.confirm(`Your token allowance is less than the swap amount. Would you like to increase your allowance?`);
-                if (increase) {
-                    await handleSetupWallet();
-                }
+                showNotify(
+                    "Allowance Required", 
+                    "Your token allowance is less than the swap amount. Would you like to increase your allowance?",
+                    handleSetupWallet
+                );
                 return;
             }
         } catch (err) {
@@ -186,7 +194,7 @@ export default function SwapCard({ onActivityAdd }) {
 
         } catch (err) {
             console.error(err);
-            alert("Swap failed! " + (err.message || err.reason || ""));
+            showNotify("Swap Failed", err.message || err.reason || "An unexpected error occurred.");
             setProgress(0);
             setStatusText('');
         } finally {
@@ -369,6 +377,15 @@ export default function SwapCard({ onActivityAdd }) {
                     </div>
                 )}
             </div>
+
+            <NotificationModal 
+                isOpen={notification.open}
+                onClose={() => setNotification({ ...notification, open: false })}
+                title={notification.title}
+                message={notification.message}
+                onConfirm={notification.onConfirm}
+                confirmText={notification.onConfirm ? "Increase" : "OK"}
+            />
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Sun, Moon, Wallet, Menu, X } from 'lucide-react';
+import { NavLink, Link } from 'react-router-dom';
+import { Sun, Moon, Wallet, Menu, X, Home, Shuffle, Droplet, Globe, Coins, Info } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 
 export default function Navbar() {
@@ -46,19 +46,18 @@ export default function Navbar() {
                 ARCADE
             </Link>
 
-            {/* CENTER: Navigation Links (and mobile actions) */}
+            {/* CENTER: Navigation Links */}
             <div className={`nav-center ${isMenuOpen ? 'mobile-open' : ''}`} style={{
                 position: isMenuOpen ? 'absolute' : 'absolute',
                 left: isMenuOpen ? '0' : '50%',
                 transform: isMenuOpen ? 'none' : 'translateX(-50%)',
-                display: 'flex',
-                gap: '2rem',
-                alignItems: 'center'
             }}>
-                <Link to="/" onClick={closeNav} style={{ textDecoration: 'none', color: 'var(--fg-color)', fontWeight: '700', fontSize: '1.2rem' }}>Home</Link>
-                <Link to="/bridge" onClick={closeNav} style={{ textDecoration: 'none', color: 'var(--fg-color)', fontWeight: '700', fontSize: '1.2rem' }}>Bridge</Link>
-                <Link to="/faucet" onClick={closeNav} style={{ textDecoration: 'none', color: 'var(--fg-color)', fontWeight: '700', fontSize: '1.2rem' }}>Faucet</Link>
-                <Link to="/about" onClick={closeNav} style={{ textDecoration: 'none', color: 'var(--fg-color)', fontWeight: '700', fontSize: '1.2rem' }}>About</Link>
+                <NavLink to="/" onClick={closeNav} className="nav-item"><Home size={18} /> Home</NavLink>
+                <NavLink to="/remit" onClick={closeNav} className="nav-item"><Globe size={18} /> Remit</NavLink>
+                <NavLink to="/pool" onClick={closeNav} className="nav-item"><Coins size={18} /> Pool</NavLink>
+                <NavLink to="/bridge" onClick={closeNav} className="nav-item"><Shuffle size={18} /> Bridge</NavLink>
+                <NavLink to="/faucet" onClick={closeNav} className="nav-item"><Droplet size={18} /> Faucet</NavLink>
+                <NavLink to="/about" onClick={closeNav} className="nav-item"><Info size={18} /> About</NavLink>
 
                 {/* Mobile only actions added to menu bottom */}
                 <div className="show-mobile-flex" style={{ gap: '1rem', alignItems: 'center', marginTop: '1rem', flexDirection: 'column' }}>

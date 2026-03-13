@@ -3,16 +3,17 @@ import { Wallet, JsonRpcProvider, Contract } from 'ethers';
 // Fallback to empty string to avoid Vite crash if not set
 const RELAYER_PK = import.meta.env.VITE_RELAYER_PRIVATE_KEY || "";
 const RPC_URL = "https://rpc.testnet.arc.network";
-const FX_ESCROW = "0xa84ee515c6E61Ee097F4636d4717743baE5a822D";
+const FX_ESCROW = "0x5404fAFAe95ABdD4d5e4B6dbF6e62856374dA5D1";
 
 // Basic ABI for FX Escrow 'settle'
 // Adjust to match your exact contract ABI!
 const ESCROW_ABI = [
-    "function settle(address user, address tokenIn, uint256 amountIn, address tokenOut, uint256 amountOut, uint256 nonce, uint256 deadline, bytes calldata signature) external"
+    "function settle(address user, address tokenIn, uint256 amountIn, address tokenOut, uint256 amountOut, uint256 nonce, uint256 deadline, bytes calldata signature) external",
+    "function settleTo(address user, address recipient, address tokenIn, uint256 amountIn, address tokenOut, uint256 amountOut, uint256 nonce, uint256 deadline, bytes calldata signature) external"
 ];
 
 // Execute Swap using our Testnet Relayer
-export const executeSwapEdge = async (fromAmount, signature, permitData, isFlipped, userAddr) => {
+export const executeSwapEdge = async (fromAmount, signature, permitData, isFlipped, userAddr, recipient = null) => {
     return new Promise(async (resolve, reject) => {
         try {
             console.log("Executing circle stableFX settlement via real Arc Relayer...");
@@ -41,19 +42,35 @@ export const executeSwapEdge = async (fromAmount, signature, permitData, isFlipp
             const tokenIn = isFlipped ? EURC_ADDR : USDC_ADDR;
             const tokenOut = isFlipped ? USDC_ADDR : EURC_ADDR;
 
-            console.log("Settling Swap...", { userAddr, tokenIn, amountInRaw, tokenOut, amountOutRaw, nonce: permitData.nonce, deadline: permitData.deadline });
+            console.log("Settling Swap...", { userAddr, tokenIn, amountInRaw, tokenOut, amountOutRaw, nonce: permitData.nonce, deadline: permitData.deadline, recipient });
 
-            // Execute the REAL settle function on your deployed ArcadeEscrow!
-            const tx = await escrow.settle(
-                userAddr,
-                tokenIn,
-                amountInRaw,
-                tokenOut,
-                amountOutRaw,
-                permitData.nonce,     // the Permit2 nonce signed by user
-                permitData.deadline,  // the Permit2 deadline signed by user
-                signature
-            );
+            let tx;
+            if (recipient) {
+                // Call the new remit-friendly function
+                tx = await escrow.settleTo(
+                    userAddr,
+                    recipient,
+                    tokenIn,
+                    amountInRaw,
+                    tokenOut,
+                    amountOutRaw,
+                    permitData.nonce,
+                    permitData.deadline,
+                    signature
+                );
+            } else {
+                // Standard swap
+                tx = await escrow.settle(
+                    userAddr,
+                    tokenIn,
+                    amountInRaw,
+                    tokenOut,
+                    amountOutRaw,
+                    permitData.nonce,
+                    permitData.deadline,
+                    signature
+                );
+            }
 
             console.log("Tx broadcasted! Hash:", tx.hash);
             const receipt = await tx.wait();
