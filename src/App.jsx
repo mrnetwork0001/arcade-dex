@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
+import Landing from './pages/Landing';
+import Swap from './pages/Swap';
 import About from './pages/About';
 import Faucet from './pages/Faucet';
 import Bridge from './pages/Bridge';
@@ -24,11 +25,12 @@ function App() {
             <WalletModal />
             <main className="container" style={{ paddingBottom: '4rem' }}>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/swap" element={<Swap />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/faucet" element={<Faucet />} />
-                    {/* <Route path="/pool" element={<Liquidity />} /> */}
                     <Route path="/bridge" element={<Bridge />} />
+                    {/* <Route path="/pool" element={<Liquidity />} /> */}
                     {/* <Route path="/remit" element={<Remit />} /> */}
                 </Routes>
             </main>
