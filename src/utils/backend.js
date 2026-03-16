@@ -34,7 +34,16 @@ export const executeSwapEdge = async (fromAmount, signature, permitData, isFlipp
             ),
         });
 
-        const data = await response.json();
+        const contentType = response.headers.get("content-type");
+        let data;
+        
+        if (contentType && contentType.includes("application/json")) {
+            data = await response.json();
+        } else {
+            const text = await response.text();
+            console.error("Non-JSON response received:", text);
+            throw new Error(`Server error (${response.status}): The transaction may have timed out or failed. Please check your wallet history.`);
+        }
 
         if (!response.ok) {
             throw new Error(data.error || 'Failed to execute swap');

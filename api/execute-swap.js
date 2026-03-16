@@ -66,7 +66,8 @@ export default async function handler(req, res) {
             );
         }
 
-        const receipt = await tx.wait();
+        // Return immediately after broadcasting to avoid Vercel timeout (10s limit)
+        // The frontend will receive the txHash and can show it to the user.
 
         return res.status(200).json({
             success: true,
