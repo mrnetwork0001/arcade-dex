@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Sun, Moon, Wallet, Menu, X, Home, Shuffle, Droplet, Globe, Coins, Info } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 
 export default function Navbar() {
     const { theme, toggleTheme, address, isConnected, setIsModalOpen, disconnect } = useWallet();
+    const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobileWalletOpen, setIsMobileWalletOpen] = useState(false);
+
+    const isLandingPage = location.pathname === '/';
 
     const formatAddress = (addr) => {
         if (!addr) return '';
@@ -46,26 +49,26 @@ export default function Navbar() {
                 ARCADE
             </Link>
 
-            {/* CENTER: Navigation Links */}
-            <div className={`nav-center ${isMenuOpen ? 'mobile-open' : ''}`} style={{
-                position: isMenuOpen ? 'absolute' : 'absolute',
-                left: isMenuOpen ? '0' : '50%',
-                transform: isMenuOpen ? 'none' : 'translateX(-50%)',
-            }}>
-                <NavLink to="/" onClick={closeNav} className="nav-item"><Home size={18} /> Home</NavLink>
-                <NavLink to="/swap" onClick={closeNav} className="nav-item"><Shuffle size={18} /> Swap</NavLink>
-                <NavLink to="/bridge" onClick={closeNav} className="nav-item"><Globe size={18} /> Bridge</NavLink>
-                <NavLink to="/faucet" onClick={closeNav} className="nav-item"><Droplet size={18} /> Faucet</NavLink>
-                <NavLink to="/about" onClick={closeNav} className="nav-item"><Info size={18} /> About</NavLink>
+            {/* CENTER: Navigation Links (Hidden on Landing Page) */}
+            {!isLandingPage && (
+                <div className={`nav-center ${isMenuOpen ? 'mobile-open' : ''}`} style={{
+                    position: isMenuOpen ? 'absolute' : 'absolute',
+                    left: isMenuOpen ? '0' : '50%',
+                    transform: isMenuOpen ? 'none' : 'translateX(-50%)',
+                }}>
+                    <NavLink to="/swap" onClick={closeNav} className="nav-item"><Shuffle size={18} /> Swap</NavLink>
+                    <NavLink to="/bridge" onClick={closeNav} className="nav-item"><Globe size={18} /> Bridge</NavLink>
+                    <NavLink to="/faucet" onClick={closeNav} className="nav-item"><Droplet size={18} /> Faucet</NavLink>
 
-                {/* Mobile only actions added to menu bottom */}
-                <div className="show-mobile-flex" style={{ gap: '1rem', alignItems: 'center', marginTop: '1rem', flexDirection: 'column' }}>
-                    <div style={{ height: '2px', width: '80%', background: 'var(--border-color)', marginBottom: '1rem' }} />
-                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        {renderActions()}
+                    {/* Mobile only actions added to menu bottom */}
+                    <div className="show-mobile-flex" style={{ gap: '1rem', alignItems: 'center', marginTop: '1rem', flexDirection: 'column' }}>
+                        <div style={{ height: '2px', width: '80%', background: 'var(--border-color)', marginBottom: '1rem' }} />
+                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            {renderActions()}
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             {/* RIGHT: Actions (Desktop) & Hamburger Toggle */}
             <div className="nav-right" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
