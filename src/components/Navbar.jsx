@@ -128,13 +128,21 @@ export default function Navbar() {
                 )}
 
                 {/* HAMBURGER TOGGLE (Hidden on Landing Page) */}
-                {!isLandingPage && (
+                {!isLandingPage ? (
                     <button
                         className="nb-button mobile-menu-btn"
                         style={{ padding: '0.5rem' }}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
+                ) : (
+                    <button 
+                        onClick={toggleTheme} 
+                        className="nb-button secondary show-mobile-flex" 
+                        style={{ padding: '0.4rem', borderRadius: '50%', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                        {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
                     </button>
                 )}
             </div>
