@@ -24,20 +24,22 @@ export default function Navbar() {
                 {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
 
-            {!isConnected ? (
-                <button onClick={() => { setIsModalOpen(true); closeNav(); }} className="nb-button" style={{ padding: '0.75rem 1rem' }}>
-                    Connect Wallet
-                </button>
-            ) : (
-                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    <span className="nb-pill" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Wallet size={16} />
-                        {formatAddress(address)}
-                    </span>
-                    <button onClick={() => { disconnect(); closeNav(); }} className="nb-button danger" style={{ padding: '0.5rem 1rem' }}>
-                        Disconnect
+            {!isLandingPage && (
+                !isConnected ? (
+                    <button onClick={() => { setIsModalOpen(true); closeNav(); }} className="nb-button" style={{ padding: '0.75rem 1rem' }}>
+                        Connect Wallet
                     </button>
-                </div>
+                ) : (
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        <span className="nb-pill" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <Wallet size={16} />
+                            {formatAddress(address)}
+                        </span>
+                        <button onClick={() => { disconnect(); closeNav(); }} className="nb-button danger" style={{ padding: '0.5rem 1rem' }}>
+                            Disconnect
+                        </button>
+                    </div>
+                )
             )}
         </>
     );
@@ -76,61 +78,65 @@ export default function Navbar() {
                     {renderActions()}
                 </div>
 
-                {/* MOBILE HEADER CONNECT/WALLET PILL */}
-                <div className="show-mobile-flex" style={{ alignItems: 'center', position: 'relative' }}>
-                    {!isConnected ? (
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="nb-button"
-                            style={{ padding: '0.4rem 0.6rem', fontSize: '0.85rem' }}
-                        >
-                            Connect
-                        </button>
-                    ) : (
-                        <div style={{ position: 'relative' }}>
+                {/* MOBILE HEADER CONNECT/WALLET PILL (Hidden on Landing Page) */}
+                {!isLandingPage && (
+                    <div className="show-mobile-flex" style={{ alignItems: 'center', position: 'relative' }}>
+                        {!isConnected ? (
                             <button
-                                onClick={() => setIsMobileWalletOpen(!isMobileWalletOpen)}
-                                className="nb-pill"
-                                style={{ padding: '0.4rem 0.6rem', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer', border: '2px solid var(--border-color)' }}
+                                onClick={() => setIsModalOpen(true)}
+                                className="nb-button"
+                                style={{ padding: '0.4rem 0.6rem', fontSize: '0.85rem' }}
                             >
-                                <Wallet size={14} />
-                                {formatAddress(address)}
+                                Connect
                             </button>
+                        ) : (
+                            <div style={{ position: 'relative' }}>
+                                <button
+                                    onClick={() => setIsMobileWalletOpen(!isMobileWalletOpen)}
+                                    className="nb-pill"
+                                    style={{ padding: '0.4rem 0.6rem', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem', cursor: 'pointer', border: '2px solid var(--border-color)' }}
+                                >
+                                    <Wallet size={14} />
+                                    {formatAddress(address)}
+                                </button>
 
-                            {isMobileWalletOpen && (
-                                <div style={{
-                                    position: 'absolute',
-                                    top: '100%',
-                                    right: 0,
-                                    marginTop: '0.5rem',
-                                    background: 'var(--bg-card)',
-                                    border: '2px solid var(--border-color)',
-                                    boxShadow: '4px 4px 0px var(--shadow-color)',
-                                    padding: '0.5rem',
-                                    zIndex: 50,
-                                    borderRadius: '4px'
-                                }}>
-                                    <button
-                                        onClick={() => { disconnect(); setIsMobileWalletOpen(false); }}
-                                        className="nb-button danger"
-                                        style={{ padding: '0.4rem 0.6rem', fontSize: '0.8rem', whiteSpace: 'nowrap' }}
-                                    >
-                                        Disconnect
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
+                                {isMobileWalletOpen && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '100%',
+                                        right: 0,
+                                        marginTop: '0.5rem',
+                                        background: 'var(--bg-card)',
+                                        border: '2px solid var(--border-color)',
+                                        boxShadow: '4px 4px 0px var(--shadow-color)',
+                                        padding: '0.5rem',
+                                        zIndex: 50,
+                                        borderRadius: '4px'
+                                    }}>
+                                        <button
+                                            onClick={() => { disconnect(); setIsMobileWalletOpen(false); }}
+                                            className="nb-button danger"
+                                            style={{ padding: '0.4rem 0.6rem', fontSize: '0.8rem', whiteSpace: 'nowrap' }}
+                                        >
+                                            Disconnect
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
 
-                {/* HAMBURGER TOGGLE */}
-                <button
-                    className="nb-button mobile-menu-btn"
-                    style={{ padding: '0.5rem' }}
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                    {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                </button>
+                {/* HAMBURGER TOGGLE (Hidden on Landing Page) */}
+                {!isLandingPage && (
+                    <button
+                        className="nb-button mobile-menu-btn"
+                        style={{ padding: '0.5rem' }}
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
+                )}
             </div>
         </nav>
     );
