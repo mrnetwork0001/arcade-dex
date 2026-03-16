@@ -139,6 +139,11 @@ p {
   box-shadow: 0px 0px 0px #000;
 }
 
+.refresh-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px var(--shadow-color) !important;
+}
+
 
 .nb-button.secondary {
   background-color: var(--accent-3);

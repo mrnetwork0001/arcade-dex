@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowDown, ChevronDown } from 'lucide-react';
+import { ArrowDown, ChevronDown, RefreshCw } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 import { checkPermit2Allowance, approvePermit2, getArcadeSignature } from '../utils/permit2';
 import { executeSwapEdge } from '../utils/backend';
@@ -265,9 +265,29 @@ export default function SwapCard({ onActivityAdd }) {
     return (
         <div className="swap-container mb-2">
             <div className="nb-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', fontSize: '0.9rem', fontWeight: 'bold' }}>
-                    <span className="nb-pill">Network: Arc Testnet</span>
-                    <span className="nb-pill">Gas Token: USDC</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <span className="nb-pill">Network: Arc Testnet</span>
+                        <span className="nb-pill">Gas: USDC</span>
+                    </div>
+                    <button 
+                        onClick={refreshBalances} 
+                        className="refresh-btn"
+                        title="Refresh Balance"
+                        style={{
+                            background: 'var(--bg-card)',
+                            border: '3px solid var(--border-color)',
+                            padding: '0.4rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '3px 3px 0px var(--shadow-color)',
+                            transition: 'all 0.1s'
+                        }}
+                    >
+                        <RefreshCw size={16} className={loading ? "spin" : ""} />
+                    </button>
                 </div>
 
                 {/* FROM */}

@@ -109,6 +109,19 @@ export const WalletProvider = ({ children }) => {
         if (signer && address) fetchBalances(signer, address);
     };
 
+    // Auto-refresh balances every 30 seconds
+    useEffect(() => {
+        let interval;
+        if (isConnected && signer && address) {
+            interval = setInterval(() => {
+                refreshBalances();
+            }, 30000); // 30 seconds
+        }
+        return () => {
+            if (interval) clearInterval(interval);
+        };
+    }, [isConnected, signer, address]);
+
     return (
         <WalletContext.Provider value={{
             address, isConnected, provider, signer,
