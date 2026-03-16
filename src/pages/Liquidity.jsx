@@ -165,12 +165,12 @@ export default function Liquidity() {
             <div style={{ 
                 marginBottom: '2.5rem', 
                 padding: '1.5rem', 
-                border: '3px dashed var(--accent-3)', 
-                backgroundColor: 'rgba(77, 121, 255, 0.05)',
+                border: '3px solid var(--accent-4)', 
+                backgroundColor: 'rgba(0, 132, 61, 0.05)',
                 boxShadow: '6px 6px 0px var(--shadow-color)'
             }}>
                 <p className="mono" style={{ fontSize: '1rem', lineHeight: '1.6', margin: 0 }}>
-                    <strong>Testnet Phase:</strong> Arcade is currently in its alpha testing phase on the Arc Network. In this version, we are testing the deposit and swap logic. <strong>Withdrawal functions</strong> will be fully enabled once we move to the next stage of the testnet, as we are currently balancing the pool reserves for testing.
+                    <strong>Liquidity Provision:</strong> Add assets to the Arcade Escrow to facilitate cross-chain stablecoin swaps. As a liquidity provider, you enable the lightning-fast FX experience Arcade is known for.
                 </p>
             </div>
 
@@ -295,9 +295,9 @@ export default function Liquidity() {
                             <Plus size={20} /> Deposit
                         </button>
                         <button 
-                            className="nb-button secondary" 
-                            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', opacity: 0.5, cursor: 'not-allowed' }}
-                            onClick={() => showNotify("Withdrawals Locked", "Withdrawals are temporarily disabled to ensure pool stability during the launch phase.")}
+                            className="nb-button danger" 
+                            style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+                            onClick={handleWithdraw}
                             disabled={loading || !isConnected}
                         >
                             <Minus size={20} /> Withdraw

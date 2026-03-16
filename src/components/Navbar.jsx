@@ -59,6 +59,7 @@ export default function Navbar() {
                     transform: isMenuOpen ? 'none' : 'translateX(-50%)',
                 }}>
                     <NavLink to="/swap" onClick={closeNav} className="nav-item"><Shuffle size={18} /> Swap</NavLink>
+                    <NavLink to="/pool" onClick={closeNav} className="nav-item"><Coins size={18} /> Pool</NavLink>
                     <NavLink to="/bridge" onClick={closeNav} className="nav-item"><Globe size={18} /> Bridge</NavLink>
                     <NavLink to="/faucet" onClick={closeNav} className="nav-item"><Droplet size={18} /> Faucet</NavLink>
 

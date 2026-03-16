@@ -30,7 +30,7 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/faucet" element={<Faucet />} />
                     <Route path="/bridge" element={<Bridge />} />
-                    {/* <Route path="/pool" element={<Liquidity />} /> */}
+                    <Route path="/pool" element={<Liquidity />} />
                     {/* <Route path="/remit" element={<Remit />} /> */}
                 </Routes>
             </main>
