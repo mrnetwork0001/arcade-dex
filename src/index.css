@@ -485,11 +485,21 @@ nav {
 .percent-btn {
   background: var(--bg-card);
   border: 2px solid var(--border-color);
+  color: var(--fg-color);
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  padding: 0.25rem 0.5rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
   cursor: pointer;
   border-radius: 4px;
+  transition: all 0.1s;
+}
+
+.percent-btn:hover {
+  background: var(--accent-1);
+  color: #000;
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0px var(--border-color);
 }
 
 /* Modal */
