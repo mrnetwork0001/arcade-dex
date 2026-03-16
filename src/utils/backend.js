@@ -29,7 +29,9 @@ export const executeSwapEdge = async (fromAmount, signature, permitData, isFlipp
                 isFlipped,
                 userAddr,
                 recipient
-            }),
+            }, (key, value) =>
+                typeof value === 'bigint' ? value.toString() : value
+            ),
         });
 
         const data = await response.json();
