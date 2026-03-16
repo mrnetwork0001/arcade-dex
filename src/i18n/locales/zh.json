@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "首页",
+    "bridge": "桥接",
+    "faucet": "水龙头",
+    "pool": "池",
+    "about": "关于",
+    "connect_wallet": "连接钱包",
+    "disconnect": "断开连接"
+  },
+  "hero": {
+    "fx_trading_made": "FX 交易变得",
+    "fx_trading_at": "FX 交易以",
+    "fx_trading_with": "FX 交易具有",
+    "super_easy": "超级简单。",
+    "zero_slippage": "零滑点。",
+    "lightning_fast": "快如闪电。",
+    "gas_optimized": "Gas 优化。",
+    "description": "Arc 网络的一键流动性。Arcade 在后台处理复杂的 FX 逻辑，因此您可以以闪电般的速度和零滑点将 USDC 交换为 EURC。"
+  },
+  "pool": {
+    "title": "池深度",
+    "global_pool": "全球池",
+    "pool_description": "当前 Arcade 托管中可用于交换的总流动性。",
+    "usdc_depth": "USDC 深度",
+    "eurc_depth": "EURC 深度",
+    "insufficient_warning": "池深度低会导致交易失败。增加流动性可确保所有 FX 交易者获得流畅的体验。",
+    "we_need_you": "我们需要你:",
+    "appeal_text": "Arcade 是一个新协议，我们仍在建立核心储备。为了帮助稳定每个人的 FX 交易，请考虑向池中添加少量的 USDC 或 EURC。",
+    "manage_assets": "管理资产",
+    "wallet": "钱包",
+    "staked": "已质押",
+    "deposit": "存款",
+    "withdraw": "取款",
+    "connect_to_manage": "连接钱包以管理流动性。"
+  },
+  "swap": {
+    "from": "从",
+    "to": "到",
+    "balance": "余额",
+    "swap": "交换",
+    "insufficient_balance": "{{token}} 余额不足！",
+    "allowance_required": "需要额度",
+    "allowance_message": "您的代币额度小于交换金额。您想增加额度吗？",
+    "increase_confirm": "增加"
+  },
+  "faucet": {
+    "title": "充实您的钱包",
+    "description": "Arcade 在 Arc Testnet 上运行。您需要测试网 USDC 来支付 gas 并进行交易。使用下方的官方 Circle 水龙头进行充值。",
+    "open_faucet": "打开官方水龙头"
+  },
+  "common": {
+    "success": "成功",
+    "error": "错误",
+    "confirm": "确认",
+    "cancel": "取消",
+    "ok": "确定",
+    "loading": "加载中..."
+  }
+}

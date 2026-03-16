@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Home",
+    "bridge": "Bridge",
+    "faucet": "Faucet",
+    "pool": "Pool",
+    "about": "About",
+    "connect_wallet": "Connect Wallet",
+    "disconnect": "Disconnect"
+  },
+  "hero": {
+    "fx_trading_made": "FX Trading made",
+    "fx_trading_at": "FX Trading at",
+    "fx_trading_with": "FX Trading with",
+    "super_easy": "Super Easy.",
+    "zero_slippage": "Zero Slippage.",
+    "lightning_fast": "Lightning Fast.",
+    "gas_optimized": "Gas Optimized.",
+    "description": "One-click liquidity for the Arc Network. Arcade handles the complex FX logic under the hood so you can swap USDC to EURC at lightning speed with zero slippage."
+  },
+  "pool": {
+    "title": "Pool Depth",
+    "global_pool": "Global Pool",
+    "pool_description": "Total liquidity currently available in the Arcade Escrow for swapping.",
+    "usdc_depth": "USDC Depth",
+    "eurc_depth": "EURC Depth",
+    "insufficient_warning": "Low pool depth causes trades to fail. Adding liquidity ensures a smooth experience for all FX traders.",
+    "we_need_you": "We Need You:",
+    "appeal_text": "Arcade is a new protocol and we are still building our core reserves. To help stabilize FX trading for everyone, please consider adding small amounts of USDC or EURC to the pool.",
+    "manage_assets": "Manage Assets",
+    "wallet": "Wallet",
+    "staked": "Staked",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "connect_to_manage": "Connect wallet to manage liquidity."
+  },
+  "swap": {
+    "from": "From",
+    "to": "To",
+    "balance": "Balance",
+    "swap": "Swap",
+    "insufficient_balance": "Insufficient {{token}} balance!",
+    "allowance_required": "Allowance Required",
+    "allowance_message": "Your token allowance is less than the swap amount. Would you like to increase your allowance?",
+    "increase_confirm": "Increase"
+  },
+  "faucet": {
+    "title": "FUEL YOUR WALLET",
+    "description": "Arcade runs on the Arc Testnet. You need Testnet USDC to pay for gas and trade. Use the official Circle Faucet below to get topped up.",
+    "open_faucet": "OPEN OFFICIAL FAUCET"
+  },
+  "common": {
+    "success": "Success",
+    "error": "Error",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "loading": "Loading..."
+  }
+}

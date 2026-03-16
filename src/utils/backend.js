@@ -12,84 +12,39 @@ const ESCROW_ABI = [
     "function settleTo(address user, address recipient, address tokenIn, uint256 amountIn, address tokenOut, uint256 amountOut, uint256 nonce, uint256 deadline, bytes calldata signature) external"
 ];
 
-// Execute Swap using our Testnet Relayer
+// Execute Swap using our Secure Backend Relayer
 export const executeSwapEdge = async (fromAmount, signature, permitData, isFlipped, userAddr, recipient = null) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            console.log("Executing circle stableFX settlement via real Arc Relayer...");
+    try {
+        console.log("Requesting settlement via secure backend...");
 
-            const USDC_EURC_RATE = 0.92;
-            const rate = isFlipped ? 1 / USDC_EURC_RATE : USDC_EURC_RATE;
+        const response = await fetch('/api/execute-swap', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fromAmount,
+                signature,
+                permitData,
+                isFlipped,
+                userAddr,
+                recipient
+            }),
+        });
 
-            if (!RELAYER_PK || RELAYER_PK === "your_private_key_here") {
-                throw new Error("Missing relayer PK!");
-            }
+        const data = await response.json();
 
-            const { parseUnits } = await import('ethers');
-            const provider = new JsonRpcProvider(RPC_URL);
-            const relayer = new Wallet(RELAYER_PK, provider);
-
-            // Note: Update FX_ESCROW with your newly deployed contract address!
-            const escrow = new Contract(FX_ESCROW, ESCROW_ABI, relayer);
-
-            // Compute output amount and convert both to 6 decimal raw strings
-            const toAmount = (parseFloat(fromAmount) * rate).toFixed(4);
-            const amountInRaw = parseUnits(fromAmount, 6);
-            const amountOutRaw = parseUnits(toAmount, 6);
-
-            const USDC_ADDR = "0x3600000000000000000000000000000000000000";
-            const EURC_ADDR = "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a";
-            const tokenIn = isFlipped ? EURC_ADDR : USDC_ADDR;
-            const tokenOut = isFlipped ? USDC_ADDR : EURC_ADDR;
-
-            console.log("Settling Swap...", { userAddr, tokenIn, amountInRaw, tokenOut, amountOutRaw, nonce: permitData.nonce, deadline: permitData.deadline, recipient });
-
-            let tx;
-            if (recipient) {
-                // Call the new remit-friendly function
-                tx = await escrow.settleTo(
-                    userAddr,
-                    recipient,
-                    tokenIn,
-                    amountInRaw,
-                    tokenOut,
-                    amountOutRaw,
-                    permitData.nonce,
-                    permitData.deadline,
-                    signature
-                );
-            } else {
-                // Standard swap
-                tx = await escrow.settle(
-                    userAddr,
-                    tokenIn,
-                    amountInRaw,
-                    tokenOut,
-                    amountOutRaw,
-                    permitData.nonce,
-                    permitData.deadline,
-                    signature
-                );
-            }
-
-            console.log("Tx broadcasted! Hash:", tx.hash);
-            const receipt = await tx.wait();
-            console.log("Tx Mined! Block:", receipt.blockNumber);
-
-            resolve({
-                success: true,
-                txHash: tx.hash,
-                quoteId: "q_" + Math.random().toString(36).slice(2),
-                rate: rate,
-            });
-
-        } catch (err) {
-            console.error("Relayer execution failed:", err);
-            if (err.message && err.message.includes('TRANSFER_FROM_FAILED')) {
-                reject(new Error("Transfer Failed: You may not have enough testnet balance to execute this swap, or the allowance was insufficient."));
-            } else {
-                reject(err);
-            }
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to execute swap');
         }
-    });
+
+        return data;
+    } catch (err) {
+        console.error("Relayer execution failed:", err);
+        if (err.message && err.message.includes('TRANSFER_FROM_FAILED')) {
+            throw new Error("Transfer Failed: You may not have enough testnet balance to execute this swap, or the allowance was insufficient.");
+        } else {
+            throw err;
+        }
+    }
 };

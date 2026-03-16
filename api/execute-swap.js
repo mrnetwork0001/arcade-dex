@@ -1,0 +1,81 @@
+import { Wallet, JsonRpcProvider, Contract, parseUnits } from 'ethers';
+
+const RPC_URL = "https://rpc.testnet.arc.network";
+const FX_ESCROW = "0x5404fAFAe95ABdD4d5e4B6dbF6e62856374dA5D1";
+
+const ESCROW_ABI = [
+    "function settle(address user, address tokenIn, uint256 amountIn, address tokenOut, uint256 amountOut, uint256 nonce, uint256 deadline, bytes calldata signature) external",
+    "function settleTo(address user, address recipient, address tokenIn, uint256 amountIn, address tokenOut, uint256 amountOut, uint256 nonce, uint256 deadline, bytes calldata signature) external"
+];
+
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    const { fromAmount, signature, permitData, isFlipped, userAddr, recipient } = req.body;
+    
+    // We use RELAYER_PRIVATE_KEY (no VITE_ prefix) which is only accessible on the server
+    const RELAYER_PK = process.env.RELAYER_PRIVATE_KEY;
+
+    if (!RELAYER_PK) {
+        console.error("RELAYER_PRIVATE_KEY is missing in environment variables");
+        return res.status(500).json({ error: 'Server configuration error' });
+    }
+
+    try {
+        const USDC_EURC_RATE = 0.92;
+        const rate = isFlipped ? 1 / USDC_EURC_RATE : USDC_EURC_RATE;
+
+        const provider = new JsonRpcProvider(RPC_URL);
+        const relayer = new Wallet(RELAYER_PK, provider);
+        const escrow = new Contract(FX_ESCROW, ESCROW_ABI, relayer);
+
+        const toAmount = (parseFloat(fromAmount) * rate).toFixed(4);
+        const amountInRaw = parseUnits(fromAmount, 6);
+        const amountOutRaw = parseUnits(toAmount, 6);
+
+        const USDC_ADDR = "0x3600000000000000000000000000000000000000";
+        const EURC_ADDR = "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a";
+        const tokenIn = isFlipped ? EURC_ADDR : USDC_ADDR;
+        const tokenOut = isFlipped ? USDC_ADDR : EURC_ADDR;
+
+        let tx;
+        if (recipient) {
+            tx = await escrow.settleTo(
+                userAddr,
+                recipient,
+                tokenIn,
+                amountInRaw,
+                tokenOut,
+                amountOutRaw,
+                permitData.nonce,
+                permitData.deadline,
+                signature
+            );
+        } else {
+            tx = await escrow.settle(
+                userAddr,
+                tokenIn,
+                amountInRaw,
+                tokenOut,
+                amountOutRaw,
+                permitData.nonce,
+                permitData.deadline,
+                signature
+            );
+        }
+
+        const receipt = await tx.wait();
+
+        return res.status(200).json({
+            success: true,
+            txHash: tx.hash,
+            quoteId: "q_" + Math.random().toString(36).slice(2),
+            rate: rate,
+        });
+    } catch (error) {
+        console.error("Relayer error:", error);
+        return res.status(500).json({ error: error.message || 'Transaction execution failed' });
+    }
+}

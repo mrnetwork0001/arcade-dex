@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "홈",
+    "bridge": "브릿지",
+    "faucet": "수도꼭지",
+    "pool": "풀",
+    "about": "소개",
+    "connect_wallet": "지갑 연결",
+    "disconnect": "연결 해제"
+  },
+  "hero": {
+    "fx_trading_made": "FX 거래를",
+    "fx_trading_at": "FX 거래를",
+    "fx_trading_with": "FX 거래를",
+    "super_easy": "가장 쉽게.",
+    "zero_slippage": "슬리피지 없이.",
+    "lightning_fast": "빛의 속도로.",
+    "gas_optimized": "가스 최적화로.",
+    "description": "Arc 네트워크의 원클릭 유동성. Arcade는 복잡한 FX 로직을 백그라운드에서 처리하여 귀하가 USDC를 EURC로 전광석화의 속도와 제로 슬리피지로 스왑할 수 있도록 합니다."
+  },
+  "pool": {
+    "title": "풀 깊이",
+    "global_pool": "글로벌 풀",
+    "pool_description": "현재 Arcade Escrow에서 스왑에 사용 가능한 총 유동성.",
+    "usdc_depth": "USDC 깊이",
+    "eurc_depth": "EURC 깊이",
+    "insufficient_warning": "풀 깊이가 낮으면 거래가 실패할 수 있습니다. 유동성을 추가하면 모든 FX 트레이더에게 부드러운 경험을 제공할 수 있습니다.",
+    "we_need_you": "도움이 필요합니다:",
+    "appeal_text": "Arcade는 새로운 프로토콜이며 현재 핵심 비축 자산을 구축 중입니다. 모든 사람의 FX 거래를 안정화시키는 데 도움이 되도록 소액의 USDC 또는 EURC를 풀에 추가하는 것을 고려해 주세요.",
+    "manage_assets": "자산 관리",
+    "wallet": "지갑",
+    "staked": "스테이킹됨",
+    "deposit": "입금",
+    "withdraw": "출금",
+    "connect_to_manage": "유동성을 관리하려면 지갑을 연결하세요."
+  },
+  "swap": {
+    "from": "보내기",
+    "to": "받기",
+    "balance": "잔액",
+    "swap": "스왑",
+    "insufficient_balance": "{{token}} 잔액이 부족합니다!",
+    "allowance_required": "승인 필요",
+    "allowance_message": "토큰 승인액이 스왑 금액보다 적습니다. 승인액을 늘리시겠습니까?",
+    "increase_confirm": "증가"
+  },
+  "faucet": {
+    "title": "지갑 충전",
+    "description": "Arcade는 Arc Testnet에서 실행됩니다. 가스비 지불과 거래를 위해 Testnet USDC가 필요합니다. 아래의 공식 Circle Faucet을 사용하여 충전하세요.",
+    "open_faucet": "공식 수도꼭지 열기"
+  },
+  "common": {
+    "success": "성공",
+    "error": "오류",
+    "confirm": "확인",
+    "cancel": "취소",
+    "ok": "확인",
+    "loading": "로딩 중..."
+  }
+}

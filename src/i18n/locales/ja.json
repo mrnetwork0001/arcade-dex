@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "bridge": "ブリッジ",
+    "faucet": "蛇口",
+    "pool": "プール",
+    "about": "紹介",
+    "connect_wallet": "ウォレットを接続",
+    "disconnect": "切断"
+  },
+  "hero": {
+    "fx_trading_made": "FX取引をもっと",
+    "fx_trading_at": "FX取引を",
+    "fx_trading_with": "FX取引を",
+    "super_easy": "超簡単に。",
+    "zero_slippage": "スリッページなしで。",
+    "lightning_fast": "電光石火で。",
+    "gas_optimized": "ガス代の最適化を。",
+    "description": "Arc Network の 1 クリック流動性。Arcade がバックグラウンドで複雑な FX ロジックを処理するため、USDC を EURC に電光石火の速さで、スリッページなしでスワップできます。"
+  },
+  "pool": {
+    "title": "プールの深さ",
+    "global_pool": "グローバルプール",
+    "pool_description": "現在Arcade Escrowでスワップに使用可能な総流動性。",
+    "usdc_depth": "USDC の深さ",
+    "eurc_depth": "EURC の深さ",
+    "insufficient_warning": "プールの深さが低いと、トレードが失敗しやすくなります。流動性を追加することで、すべての FX トレーダーがスムーズに体験できるようになります。",
+    "we_need_you": "ご協力のお願い:",
+    "appeal_text": "Arcadeは新しいプロトコルであり、現在コアリザーブを構築中です。すべてのFX取引を安定させるために、プールへの少額のUSDCまたはEURCの追加をご検討ください。",
+    "manage_assets": "資産の管理",
+    "wallet": "ウォレット",
+    "staked": "ステーク済み",
+    "deposit": "入金",
+    "withdraw": "出金",
+    "connect_to_manage": "流動性を管理するにはウォレットを接続してください。"
+  },
+  "swap": {
+    "from": "から",
+    "to": "へ",
+    "balance": "残高",
+    "swap": "スワップ",
+    "insufficient_balance": "{{token}} 残高不足です！",
+    "allowance_required": "承認の必要があります",
+    "allowance_message": "トークン承認額がスワップ額を下回っています。承認額を増やしますか？",
+    "increase_confirm": "増やす"
+  },
+  "faucet": {
+    "title": "ウォレットに補給",
+    "description": "Arcade は Arc Testnet で動作します。ガス代の支払いと取引には Testnet USDC が必要です。以下の公式 Circle Faucet を使用して補充してください。",
+    "open_faucet": "公式蛇口を開く"
+  },
+  "common": {
+    "success": "成功",
+    "error": "エラー",
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "ok": "OK",
+    "loading": "読み込み中..."
+  }
+}

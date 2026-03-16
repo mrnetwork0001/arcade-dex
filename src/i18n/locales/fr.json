@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "bridge": "Bridge",
+    "faucet": "Faucet",
+    "pool": "Pool",
+    "about": "À propos",
+    "connect_wallet": "Connecter mon Wallet",
+    "disconnect": "Déconnecter"
+  },
+  "hero": {
+    "fx_trading_made": "Trading FX rendu",
+    "fx_trading_at": "Trading FX à",
+    "fx_trading_with": "Trading FX avec",
+    "super_easy": "Super Facile.",
+    "zero_slippage": "Slippage Zéro.",
+    "lightning_fast": "Vitesse Éclair.",
+    "gas_optimized": "Gaz Optimisé.",
+    "description": "Liquidité en un clic pour le réseau Arc. Arcade gère la logique complexe du FX en arrière-plan afin que vous puissiez échanger du USDC contre de l'EURC à une vitesse fulgurante avec un slippage nul."
+  },
+  "pool": {
+    "title": "Profondeur du Pool",
+    "global_pool": "Pool Global",
+    "pool_description": "Liquidité totale actuellement disponible dans l'Escrow Arcade pour l'échange.",
+    "usdc_depth": "Profondeur USDC",
+    "eurc_depth": "Profondeur EURC",
+    "insufficient_warning": "Une faible profondeur de pool entraîne l'échec des transactions. L'ajout de liquidité garantit une expérience fluide pour tous les traders FX.",
+    "we_need_you": "Nous Avons Besoin de Vous:",
+    "appeal_text": "Arcade est un nouveau protocole et nous construisons encore nos réserves principales. Pour aider à stabiliser le trading FX pour tous, veuillez envisager d'ajouter de petites quantités d'USDC ou d'EURC au pool.",
+    "manage_assets": "Gérer les Actifs",
+    "wallet": "Wallet",
+    "staked": "Staked",
+    "deposit": "Déposer",
+    "withdraw": "Retirer",
+    "connect_to_manage": "Connectez votre wallet pour gérer la liquidité."
+  },
+  "swap": {
+    "from": "De",
+    "to": "À",
+    "balance": "Solde",
+    "swap": "Échanger",
+    "insufficient_balance": "Solde {{token}} insuffisant!",
+    "allowance_required": "Autorisation Requise",
+    "allowance_message": "Votre autorisation de jeton est inférieure au montant de l'échange. Souhaitez-vous augmenter votre autorisation?",
+    "increase_confirm": "Augmenter"
+  },
+  "faucet": {
+    "title": "ALIMENTEZ VOTRE WALLET",
+    "description": "Arcade fonctionne sur le réseau de test Arc Testnet. Vous avez besoin d'USDC Testnet pour payer le gaz et trader. Utilisez le faucet officiel Circle ci-dessous pour être réapprovisionné.",
+    "open_faucet": "OUVRIR LE FAUCET OFFICIEL"
+  },
+  "common": {
+    "success": "Succès",
+    "error": "Erreur",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "ok": "OK",
+    "loading": "Chargement..."
+  }
+}
