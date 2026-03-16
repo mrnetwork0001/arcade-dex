@@ -36,12 +36,13 @@ export default function Liquidity() {
     };
 
     useEffect(() => {
+        fetchPoolInfo(); // Fetch public info immediately
         if (isConnected && address && signer) {
             fetchLpBalance();
-            fetchPoolInfo();
             loadActivities();
         } else {
             setActivities([]);
+            setLpBalance('0');
         }
     }, [isConnected, address, token]);
 
@@ -58,10 +59,13 @@ export default function Liquidity() {
     };
 
     const handleActivityAdd = (act) => {
+        if (!address) return;
         setActivities(prev => {
             const newActs = [act, ...prev];
             const storageKey = `arcade_lp_activities_${address.toLowerCase()}`;
-            localStorage.setItem(storageKey, JSON.stringify(newActs));
+            localStorage.setItem(storageKey, JSON.stringify(newActs, (key, value) =>
+                typeof value === 'bigint' ? value.toString() : value
+            ));
             return newActs;
         });
     };
@@ -79,8 +83,10 @@ export default function Liquidity() {
 
     const fetchPoolInfo = async () => {
         try {
-            const usdcContract = new Contract(USDC_ADDR, ERC20_ABI, signer);
-            const eurcContract = new Contract(EURC_ADDR, ERC20_ABI, signer);
+            const { JsonRpcProvider, Contract } = await import('ethers');
+            const provider = new JsonRpcProvider("https://rpc.testnet.arc.network");
+            const usdcContract = new Contract(USDC_ADDR, ERC20_ABI, provider);
+            const eurcContract = new Contract(EURC_ADDR, ERC20_ABI, provider);
             const uBal = await usdcContract.balanceOf(ESCROW_ADDR);
             const eBal = await eurcContract.balanceOf(ESCROW_ADDR);
             setPoolInfo({
@@ -94,11 +100,21 @@ export default function Liquidity() {
 
     const handleDeposit = async () => {
         if (!amount || parseFloat(amount) <= 0) return;
+        if (!signer) {
+            showNotify("Not Connected", "Please connect your wallet first.");
+            return;
+        }
         setLoading(true);
         try {
             const tokenAddr = token === 'USDC' ? USDC_ADDR : EURC_ADDR;
             const tokenContract = new Contract(tokenAddr, ERC20_ABI, signer);
             const amountRaw = parseUnits(amount, 6);
+
+            // Check balance first
+            const userBalRaw = await tokenContract.balanceOf(address);
+            if (userBalRaw < amountRaw) {
+                throw new Error("Insufficient balance in your wallet.");
+            }
 
             // Check allowance
             const allowance = await tokenContract.allowance(address, ESCROW_ADDR);
@@ -109,15 +125,25 @@ export default function Liquidity() {
 
             const escrow = new Contract(ESCROW_ADDR, ESCROW_ABI, signer);
             const tx = await escrow.depositLiquidity(tokenAddr, amountRaw);
-            await tx.wait();
-
+            
             handleActivityAdd({
                 pair: `Deposit ${token}`,
                 amount: `${amount} ${token}`,
-                status: 'confirmed',
+                status: 'pending',
                 timestamp: Date.now(),
                 txHash: tx.hash
             });
+
+            await tx.wait();
+
+            // Update activity status to confirmed
+            setActivities(prev => prev.map(a => a.txHash === tx.hash ? { ...a, status: 'confirmed' } : a));
+            const storageKey = `arcade_lp_activities_${address.toLowerCase()}`;
+            const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            localStorage.setItem(storageKey, JSON.stringify(
+                saved.map(a => a.txHash === tx.hash ? { ...a, status: 'confirmed' } : a),
+                (key, value) => typeof value === 'bigint' ? value.toString() : value
+            ));
 
             showNotify("Success", "Liquidity added successfully!");
             setAmount('');
@@ -126,7 +152,8 @@ export default function Liquidity() {
             refreshBalances();
         } catch (err) {
             console.error(err);
-            showNotify("Deposit Failed", err.reason || err.message);
+            const msg = err.reason || err.message || "An unknown error occurred during deposit.";
+            showNotify("Deposit Failed", msg);
         } finally {
             setLoading(false);
         }
@@ -134,6 +161,10 @@ export default function Liquidity() {
 
     const handleWithdraw = async () => {
         if (!amount || parseFloat(amount) <= 0) return;
+        if (!signer) {
+            showNotify("Not Connected", "Please connect your wallet first.");
+            return;
+        }
         setLoading(true);
         try {
             const tokenAddr = token === 'USDC' ? USDC_ADDR : EURC_ADDR;
@@ -141,7 +172,25 @@ export default function Liquidity() {
             const amountRaw = parseUnits(amount, 6);
 
             const tx = await escrow.withdrawLiquidity(tokenAddr, amountRaw);
+            
+            handleActivityAdd({
+                pair: `Withdraw ${token}`,
+                amount: `${amount} ${token}`,
+                status: 'pending',
+                timestamp: Date.now(),
+                txHash: tx.hash
+            });
+
             await tx.wait();
+
+            // Update activity status to confirmed
+            setActivities(prev => prev.map(a => a.txHash === tx.hash ? { ...a, status: 'confirmed' } : a));
+            const storageKey = `arcade_lp_activities_${address.toLowerCase()}`;
+            const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            localStorage.setItem(storageKey, JSON.stringify(
+                saved.map(a => a.txHash === tx.hash ? { ...a, status: 'confirmed' } : a),
+                (key, value) => typeof value === 'bigint' ? value.toString() : value
+            ));
 
             showNotify("Success", "Liquidity withdrawn successfully!");
             setAmount('');
@@ -150,7 +199,8 @@ export default function Liquidity() {
             refreshBalances();
         } catch (err) {
             console.error(err);
-            showNotify("Withdraw Failed", err.reason || err.message);
+            const msg = err.reason || err.message || "An unknown error occurred during withdrawal.";
+            showNotify("Withdraw Failed", msg);
         } finally {
             setLoading(false);
         }
@@ -292,7 +342,8 @@ export default function Liquidity() {
                             onClick={handleDeposit}
                             disabled={loading || !isConnected}
                         >
-                            <Plus size={20} /> Deposit
+                            <Plus size={20} className={loading ? "spin" : ""} />
+                            {loading ? "Processing..." : "Deposit"}
                         </button>
                         <button 
                             className="nb-button danger" 
@@ -300,7 +351,8 @@ export default function Liquidity() {
                             onClick={handleWithdraw}
                             disabled={loading || !isConnected}
                         >
-                            <Minus size={20} /> Withdraw
+                            <Minus size={20} className={loading ? "spin" : ""} />
+                            {loading ? "Processing..." : "Withdraw"}
                         </button>
                     </div>
 
